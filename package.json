@@ -1,0 +1,18 @@
+{
+    "name": "samsung-package-server",
+    "version": "0.0.1",
+    "description": "Deploy your Samsung Smart TV apps with ease",
+    "main": "app.js",
+    "dependencies": {
+        "adm-zip": "*",
+        "express": "3.0.0",
+        "optimist": "*",
+        "xml": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nekuz0r/samsung-package-server.git"
+    },
+    "author": "Leandre Gohy <leandre.gohy@hexeo.be>",
+    "license": "MIT"
+}
