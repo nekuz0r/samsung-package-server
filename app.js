@@ -13,7 +13,7 @@ var argv = require('optimist')
 
 var app = express();
 app.configure(function () {
-    app.set('port', process.env.PORT || 3030);
+    app.set('port', process.env.PORT || 80);
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
@@ -82,7 +82,7 @@ generateZipPackages(function(err, zips) {
         generateXmlForPackages(argv.host, zips, function(err, xml) {
             if (!err) {
                 httpServer.listen(app.get('port'), function () {
-                    console.log('Samsung Package Server listening on port ' + argv.host + ':' + app.get('port'));
+                    console.log('Samsung Package Server listening on ' + argv.host + ':' + app.get('port'));
                     
                     app.get('/widgetlist.xml', function(req, res) {
                         res.setHeader('Content-Type', 'application/xml');
