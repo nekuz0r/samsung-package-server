@@ -4,7 +4,7 @@
     "description": "Deploy your Samsung Smart TV apps with ease",
     "main": "app.js",
     "dependencies": {
-        "adm-zip": "*",
+        "adm-zip": "git+https://github.com/cthackers/adm-zip.git",
         "express": "3.0.0",
         "optimist": "*",
         "xml": "*"

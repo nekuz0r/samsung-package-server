@@ -32,8 +32,8 @@ function generateZipPackages (callback) {
                     for (index = 0; index < files.length; index++) {
                         if (fs.lstatSync(path.join('apps', files[index])).isDirectory()) {
                             zip = new AdmZip();
-                            zip.addLocalFolder(path.join('apps', files[index]), files[index]);
-                            zips[files[index].toLowerCase()] = zip.toBuffer();
+                            zip.addLocalFolder(path.join('apps', files[index]), '/');
+                            zips[files[index]] = zip.toBuffer();
                         }
                     }
                     
@@ -84,16 +84,19 @@ generateZipPackages(function(err, zips) {
                 httpServer.listen(app.get('port'), function () {
                     console.log('Samsung Package Server listening on ' + argv.host + ':' + app.get('port'));
                     
+                    for (var pkg in zips) {
+                        console.log('PKG:', pkg, zips[pkg].length);
+                    }
+                    
                     app.get('/widgetlist.xml', function(req, res) {
                         res.setHeader('Content-Type', 'application/xml');
                         res.send(200, xml);
                     });
                     
                     app.get('/apps/:pkgname', function(req, res) {
-                        var pkgname = path.basename(req.params.pkgname, '.zip').toLowerCase();
-                        console.log(zips);
-                        console.log(pkgname);
+                        var pkgname = path.basename(req.params.pkgname, '.zip');
                         if (zips[pkgname] === undefined) return res.send(404);
+                        res.setHeader('Content-Type', 'application/zip');
                         return res.send(200, zips[pkgname]);
                     });
                 });
